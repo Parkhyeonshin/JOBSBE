@@ -34,10 +34,11 @@ input {
     border: none;
     padding-top: 6px;
     outline-color: #668ef3;
+    padding: 10px 20px;
+    font-size: 21px;
 }
 
 ::placeholder {
-    padding-left: 20px;
     font-size: 21px;
 }
 
@@ -105,4 +106,12 @@ input {
 
 .mt70 {
     margin-top: 70px !important;
+}
+
+/* container */
+.container {
+    width: 1160px;
+    padding: 0 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
