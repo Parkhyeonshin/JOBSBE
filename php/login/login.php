@@ -19,7 +19,7 @@
             </form>
 
             <div class="login__service">
-                <a href="http://bb020440.dothome.co.kr/php/login/join.php" class="join btn3">회원가입</a>
+                <a href="http://bb020440.dothome.co.kr/php/login/joinAgree.php" class="join btn3">회원가입</a>
                 <div class="findID btn3">아이디 찾기</div>
                 <div class="findPW btn3">비밀번호 찾기</div>
             </div>

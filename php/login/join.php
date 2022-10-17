@@ -40,10 +40,10 @@
                             <p class="warning" id="youBirthComment"></p>
                         </div>
 
-                        <div class="clearfix">
+                        <div class="clearfix ID">
                             <label for="youID">아이디</label>
                             <input type="text" name="youID" id="youID" required>
-                            <div class="idCheck btn1" onclick="idChecking()">중복확인</div>
+                            <div class="idCheck btn1">중복확인</div>
                             <p class="warning" id="youIDComment"></p>
                         </div>
 
@@ -59,7 +59,7 @@
                             <p class="warning" id="youPassCComment"></p>
                         </div>
 
-                        <div class="clearfix">
+                        <div class="clearfix address">
                             <label for="youAddress1">주소</label>
                             <input type="text" name="youAddress1" id="youAddress1" placeholder="우편번호" required>
                             <div class="addressCheck btn1">주소 찾기</div>

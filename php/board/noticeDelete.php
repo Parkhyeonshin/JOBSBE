@@ -17,10 +17,10 @@
         exit;
     }
 
-    // $sql = "DELETE FROM myNotice WHERE myNoticeID={$myNoticeID}";
-    // $connect -> query($sql);
+    $sql = "DELETE FROM myNotice WHERE myNoticeID={$myNoticeID}";
+    $connect -> query($sql);
 ?>
 
 <script>
-    // location.href = "./notice.php";
+    location.href = "./notice.php";
 </script>

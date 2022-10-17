@@ -76,6 +76,9 @@
         </section>
     </main>
 
+    <?php
+        include "../include/footer.php";
+    ?>
     <script>
         let checkBtn1 = document.getElementById("agreeCheck1");
         let checkBtn2 = document.getElementById("agreeCheck2");

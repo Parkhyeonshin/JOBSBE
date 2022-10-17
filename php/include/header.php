@@ -19,7 +19,7 @@
             <ul>
                 <li><a href="Today_issue.html">오늘의 이슈</a></li>
                 <li><a href="http://bb020440.dothome.co.kr/php/main/category_R.php">꿀팁 저장소</a></li>
-                <li><a href="QnA_page.html">QnA</a></li>
+                <li><a href="#">QnA</a></li>
                 <li><a href="http://bb020440.dothome.co.kr/php/board/notice.php">공지사항</a></li>
             </ul>
         </div>
