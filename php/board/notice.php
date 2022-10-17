@@ -1,4 +1,7 @@
 <?php
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+    header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
     include "../connect/connect.php";
     include "../connect/session.php";
     // include "../connect/sessionCheck.php";
@@ -15,7 +18,9 @@
     <link rel="stylesheet" href="../../html/asset/css/noticemain.css">
     <link rel="stylesheet" href="../../html/asset/css/join.css">
     
-    <?php include "../include/link.php" ?>
+    <?php 
+        include "../include/link.php";
+    ?>
     
 </head>
 <body>
@@ -59,25 +64,28 @@
     }
     $viewNum = 5;
     $viewLimit = ($viewNum * $page) - $viewNum;
-    // echo $_GET['page'];
-    //
-    //1~5  --> 1page  : DESC 0,  5  ---> ($viewNum * 1) - $viewNum
-    //6~10 --> 2page  : DESC 5, 5  ---> ($viewNum * 2) - $viewNum
-    //11~15 --> 3page  : DESC 10, 5  ---> ($viewNum * 3) - $viewNum
-    //16~20 --> 4page  : DESC 15, 20  ---> ($viewNum * 4) - $viewNum
 
     // 두개의 테이블 join
-    $sql = "SELECT b.myNoticeID, b.noticeTitle, b.regTime FROM myNotice b JOIN myMember m ON (b.myMemberID = m.myMemberID) ORDER BY myNoticeID DESC LIMIT {$viewLimit}, {$viewNum}";
+    $sql = "SELECT b.myNoticeID, b.noticeTitle, b.regTime FROM myNotice b JOIN myMember m ON (b.myMemberID = m.myMemberID) ORDER BY regTime DESC LIMIT {$viewLimit}, {$viewNum}";
     $result = $connect -> query($sql);
+
+    // 전체 글 갯수
+    $totalSql = "SELECT count(myNoticeID) FROM myNotice";
+    $totalResult = $connect -> query($totalSql);
+    
+    $boardCount = $totalResult -> fetch_array(MYSQLI_ASSOC);
+    $boardCount = $boardCount['count(myNoticeID)'];
     
     if($result){
         $count = $result -> num_rows;
+        // echo "cnt".$count."<br>";
+        // echo $sql;
         if($count > 0){
             for($i=1; $i <= $count; $i++){
                 $info = $result -> fetch_array(MYSQLI_ASSOC);
                 echo "<tr>";
                 echo "<td>".date('Y-m-d', $info['regTime'])."</td>";
-                if($info['myNoticeID'] == $count || $info['myNoticeID'] == $count-1 || $info['myNoticeID'] == $count-2){
+                if(($i === 1 || $i === 2 || $i === 3) && $_GET['page'] < 2){
                     echo "<td class='bold'><a href='noticeView.php?myNoticeID={$info['myNoticeID']}'>".$info['noticeTitle']."</a></td>";
                 } else {
                     echo "<td><a href='noticeView.php?myNoticeID={$info['myNoticeID']}'>".$info['noticeTitle']."</a></td>";
@@ -90,26 +98,6 @@
         }
     }
 ?>
-                            <!-- <tr>
-                                <td>2019-02-04</td>
-                                <td class="bold"><a href="noticeView.html">[공지] 잡스비 질문자 패널티 정책</a></td>
-                            </tr>
-                            <tr>
-                                <td>2019-02-04</td>
-                                <td class="bold"><a href="noticeView.html">[공지] 잡스비 질문자 패널티 정책</a></td>
-                            </tr>
-                            <tr>
-                                <td>2019-02-04</td>
-                                <td class="bold"><a href="noticeView.html">[공지] 잡스비 질문자 패널티 정책</a></td>
-                            </tr>
-                            <tr>
-                                <td>2019-02-04</td>
-                                <td><a href="noticeView.html">[공지] 잡스비 휴가 날짜</a></td>
-                            </tr>
-                            <tr>
-                                <td>2019-02-04</td>
-                                <td><a href="noticeView.html">[공지] 잡스비 사용자 설문조사</a></td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -129,33 +117,34 @@
                 <div class="board__pages">
                     <ul>
 <?php
-    $sql = "SELECT count(myNoticeID) FROM myNotice";
-    $result = $connect -> query($sql);
-    $boardCount = $result -> fetch_array(MYSQLI_ASSOC);
-    $boardCount = $boardCount['count(myNoticeID)'];
     // 총 페이지 개수
     $boardCount = ceil($boardCount/$viewNum);
-    // echo $boardCount;
+
     // 현재 페이지를 기준으로 보여주고 싶은 개수
     $pageCurrent = 5;
     $startPage = $page - $pageCurrent;
     $endPage = $page + $pageCurrent;
+    
     // 처음 페이지 초기화
     if($startPage < 1) $startPage = 1;
+    
     // 마지막 페이지 초기화
     if($endPage >= $boardCount) $endPage = $boardCount;
+    
     // 이전 페이지, 처음 페이지
     if($page != 1){
         $prevPage = $page - 1;
         echo "<li><a href='notice.php?page=1'>처음으로</a></li>";
         echo "<li><a href='notice.php?page={$prevPage}'>이전</a></li>";
     }
+    
     // 페이지 넘버 표시
     for($i=$startPage; $i<=$endPage; $i++){
         $active = "";
         if($i == $page) $active = "active";
         echo "<li class='{$active}'><a href='notice.php?page={$i}'>{$i}</a></li>";
     }
+    
     // 다음 페이지, 마지막 페이지
     if($page != $endPage){
         $nextPage = $page + 1;
@@ -163,27 +152,14 @@
         echo "<li><a href='notice.php?page={$boardCount}'>마지막으로</a></li>";
     }
 ?>
-                        <!-- <li><a href="#">처음으로</a></li>
-                        <li><a href="#">이전</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">다음</a></li>
-                        <li><a href="#">마지막으로</a></li> -->
                     </ul>
                 </div>
             </div>
         </section>
         <!-- //board -->
-
-
     </main>
-    
     <?php
         include "../include/footer.php";
     ?>
-
 </body>
 </html>

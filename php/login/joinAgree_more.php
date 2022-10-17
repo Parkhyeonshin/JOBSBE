@@ -17,29 +17,9 @@
     </div>
     <!-- //skip -->
 
-    <header id="header">
-        <div class="header__inner">
-            <div class="left">
-                <a href="main.html"><span class="blind">메인페이지 이동</span></a>
-            </div>
-            <div class="middle">
-                <ul>
-                    <li><a href="Today_issue.html">오늘의 이슈</a></li>
-                    <li><a href="Tip_infor.html">꿀팁 저장소</a></li>
-                    <li><a href="QnA_page.html">QnA</a></li>
-                    <li><a href="Notice.html">공지사항</a></li>
-                </ul>
-            </div>
-            <div class="right">
-                <ul>
-                    <li><a href="#"><span class="blind">알림</span></a></li>
-                    <li><a href="board_write.html"><span class="blind">글쓰기</span></a></li>
-                    <li><a class="btn3" href="LoginForm.html">로그인</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
-    <!-- //header -->
+    <?php
+        include "../include/header.php";
+    ?>
 
     <main id="main" class="Agree_more">
         <section class="container">

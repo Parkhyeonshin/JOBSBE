@@ -40,6 +40,15 @@
     font-size: 21px;
 }
 
+.login__inner.SearchPWResult .login__result .resetPW {
+    width: 48%;
+    height: 55px;
+    padding: 5px;
+    text-align: center;
+    font-size: 21px;
+    line-height: 50px;
+}
+
 @media (max-width:468px) {
     .login__inner.SearchPWResult .login__result .join {
         /* padding: 17px 50px 15px 50px; */

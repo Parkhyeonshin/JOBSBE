@@ -85,7 +85,7 @@
 
             <div class="login__result">
                 <div class="join btn2 fs">로그인</div>
-                <div class="findPW btn3 fs">비밀번호 찾기</div>
+                <div class="findPW btn3 fs">비밀번호 찾기</div> // 여기
             </div>
         </div>
         <!-- // 아이디 찾기 결과 -->
@@ -150,7 +150,7 @@
 
             <div class="login__result">
                 <div class="join btn2 fs">로그인</div>
-                <div class="findPW btn3 fs">비밀번호 변경</div>
+                <div class="resetPW btn3 fs">비밀번호 재설정</div>
             </div>
         </div>
         <!-- // 비밀번호 찾기 결과 -->
@@ -161,12 +161,12 @@
                 <fieldset>
                     <legend class="blind">로그인 입력 폼</legend>
                     <div>
-                        <label for="password" class="blind">아이디</label>
+                        <label for="password" class="blind">비밀번호</label>
                         <input type="password" name="password" id="password" placeholder="새 비밀번호" required>
                     </div>
                     <div>
-                        <label for="passwordCheck" class="blind">비밀번호</label>
-                        <input type="passwordCheck" name="passwordCheck" id="passwordCheck" placeholder="새 비밀번호 확인" required>
+                        <label for="passwordCheck" class="blind">비밀번호 재설정</label>
+                        <input type="password" name="passwordCheck" id="passwordCheck" placeholder="새 비밀번호 확인" required>
                     </div>
                     <div class="pwd__btn">
                         <button type="submit" class="change btn1">변경하기</button>
@@ -272,6 +272,7 @@
 </div>
 
 <script>
+    // 01번째 섹션
     // 로그인 관련 폼들 선택자
     const LoginMain = document.querySelector(".login__inner.LoginMain");
     const SearchIDPhone = document.querySelector(".login__inner.SearchIDPhone");
@@ -426,6 +427,50 @@
         AuthEmail.style.display = 'block';
     });
 
+    // 비밀번호 찾기 완료 후 로그인
+    const pwFindResultLoginBtn = document.querySelector('.SearchPWResult .join');
+    pwFindResultLoginBtn.addEventListener('click', () => {
+        array.forEach((form) => {
+            form.style.display = 'none';
+        });
+        LoginMain.style.display = 'block';
+    });
+    
+    // 비밀번호 찾기 완료 후 재설정
+    const pwFindResultResetPWBtn = document.querySelector('.SearchPWResult .resetPW');
+    pwFindResultResetPWBtn.addEventListener('click', () => {
+        array.forEach((form) => {
+            form.style.display = 'none';
+        });
+        ChangePW.style.display = 'block';
+    });
+
+    // 비밀번호 재설정에서 취소하기 버튼
+    const pwChangeCancelBtn = document.querySelector('.ChangePW .cancel');
+    pwChangeCancelBtn.addEventListener('click', () => {
+        array.forEach((form) => {
+            form.style.display = 'none';
+        });
+        LoginMain.style.display = 'block';
+    });
+
+    // 비밀번호 재설정 완료 후 로그인
+    const pwChangeResultLoginlBtn = document.querySelector('.ChangePWResult .login');
+    pwChangeResultLoginlBtn.addEventListener('click', () => {
+        array.forEach((form) => {
+            form.style.display = 'none';
+        });
+        LoginMain.style.display = 'block';
+    });
+
+    // 비밀번호 재설정 완료 후 홈으로
+    const pwChangeResultHomeBtn = document.querySelector('.ChangePWResult .home');
+    pwChangeResultHomeBtn.addEventListener('click', () => {
+        location.href = "http://bb020440.dothome.co.kr/php/main/category_R.php";
+    });
+
+
+    // 02번째 섹션
     const doAuthEmail = document.querySelector('.AuthEmail form fieldset a'); // 이메일로 본인인증 하기 버튼
     const doAuthPhone = document.querySelector('.AuthPhone form fieldset a'); // 휴대폰번호로 본인인증 하기 버튼
     // const emailCheckNum = document.querySelector('.AuthEmail input#emailCheckNum');
@@ -544,10 +589,77 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+    let mySessionID = 0;
+    // ajax 통신 (아이디, 비밀번호 찾기 & 비밀번호 재설정)
     const IDForm = document.querySelector(".SearchIDEmail form"); // 아이디 찾기 이메일
     const IDForm2 = document.querySelector(".SearchIDPhone form"); // 아이디 찾기 폰
     const PWForm = document.querySelector(".SearchPWEmail form"); // 비번 찾기 이메일
     const PWForm2 = document.querySelector(".SearchPWPhone form"); // 비번 찾기 폰
+    const PWChangeForm = document.querySelector(".ChangePW form"); // 비번 재설정
+
+    // 비번 재설정
+    PWChangeForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if(!PWChecking()) {
+            alert("비밀번호는 공백없이 특수문자와 숫자를 포함하여 8~20자 이내로 작성해주세요");
+            return;
+        }
+        PWChange();
+    });
+
+    // 비밀번호 유효성 검사
+    function PWChecking() {
+        const getYouPass = $('#password').val();
+        const getYouPassNum = getYouPass.search(/[0-9]/g);
+        const getYouPassEng = getYouPass.search(/[a-z]/gi);
+        const getYouPassSpe = getYouPass.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+        if (getYouPass.length < 8 || getYouPass.length > 20) {
+            return false;
+        }
+        else if (getYouPass.search(/[\s]/) !== -1) {
+            return false;
+        }
+        else if (getYouPassNum < 0 || getYouPassEng < 0 || getYouPassSpe < 0) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    function PWChange() {
+        console.log(mySessionID);
+        let password = $('#password').val();
+        let passwordCheck = $('#passwordCheck').val();
+
+        if(password !== passwordCheck) {
+            alert("비밀번호가 일치하지 않습니다.");
+            return;
+        }
+
+        $.ajax({
+            type : "POST",
+            url  : "http://bb020440.dothome.co.kr/php/login/PWChange.php",
+            data : {"youPass" : password, "mySessionID" : mySessionID},
+            dataType : "json",
+            success : function(data) {
+                if(data.result === "good") {
+                    array.forEach((form) => {
+                        form.style.display = 'none';
+                    });
+                    ChangePWResult.style.display = 'block';
+                }
+                else {
+                    alert("변경 실패 - 관리자에게 문의해주세요");
+                }
+            },
+            error : function(request, status, error) {
+                console.log("request",request);
+                console.log("status",status);
+                console.log("error",error);
+            }
+        });
+    }
     
     // 아이디 찾기 이메일
     IDForm.addEventListener('submit', (e) => {
@@ -566,10 +678,11 @@
         let youIDPhonePhone = $('#SearchIDPhonePhone').val();
         if(youIDPhoneName ==='') {
             alert("공백입니다.");
+            return;
         }
         $.ajax({
             type : "POST",
-            url  : "IDFind.php",
+            url  : "http://bb020440.dothome.co.kr/php/login/IDFind.php",
             data : {"youName" : youIDPhoneName, "youPhone" : youIDPhonePhone, "type" : "phoneCheck"},
             dataType : "json",
             success : function(data) {
@@ -597,10 +710,11 @@
         let youIDEmailEmail = $('#SearchIDEmailEmail').val();
         if(youIDEmailName ==='') {
             alert("공백입니다.");
+            return;
         }
         $.ajax({
             type : "POST",
-            url  : "IDFind.php",
+            url  : "http://bb020440.dothome.co.kr/php/login/IDFind.php",
             data : {"youName" : youIDEmailName, "youEmail" : youIDEmailEmail, "type" : "emailCheck"},
             dataType : "json",
             success : function(data) {
@@ -638,15 +752,16 @@
     function pwEmailChecking() {
         let youID = $('#SearchPWEmailID').val();
         let youName = $('#SearchPWEamilName').val();
-        let youEmail = $('#SearchPWEmailEmail').val()
-        
+        let youEmail = $('#SearchPWEmailEmail').val();
+
         if(youName ==='') {
             alert("공백입니다.");
+            return;
         }
 
         $.ajax({
             type : "POST",
-            url  : "passwordFind.php",
+            url  : "http://bb020440.dothome.co.kr/php/login/passwordFind.php",
             data : {"youID" : youID, "youName" : youName, "youEmail" : youEmail, "type" : "emailCheck"},
             dataType : "json",
             success : function(data) {
@@ -654,8 +769,10 @@
                     array.forEach((form) => {
                         form.style.display = 'none';
                     });
-                    SearchPWResult.querySelector('span').innerText = data.result.replace("good", '');
+                    SearchPWResult.querySelector('span').innerText = data.result.replace("good", "");
                     SearchPWResult.style.display = 'block';
+                    mySessionID = data.result.replace("good", "").replace("tempPass", "");
+                    console.log(data.result, mySessionID);
                 }
                 else {
                     alert("그런 정보가 없습니다.");
@@ -676,11 +793,12 @@
           
         if(youName ==='') {
             alert("공백입니다.");
+            return;
         }
 
         $.ajax({
             type : "POST",
-            url  : "passwordFind.php",
+            url  : "http://bb020440.dothome.co.kr/php/login/passwordFind.php",
             data : {"youID" : youID, "youName" : youName, "youPhone" : youPhone, "type" : "phoneCheck"},
             dataType : "json",
             success : function(data) {
@@ -690,6 +808,7 @@
                     });
                     SearchPWResult.querySelector('span').innerText = data.result.replace("good", '');
                     SearchPWResult.style.display = 'block';
+                    mySessionID = data.result.replace("good", "").replace("tempPass", "");
                 }
                 else {
                     alert("그런 정보가 없습니다.");

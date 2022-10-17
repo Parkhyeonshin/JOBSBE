@@ -1,12 +1,13 @@
 <?php
     include "../connect/connect.php";
+    include "../connect/session.php";
 
     // 변수 설정
     $type = $_POST['type'];
     $youID = $_POST['youID'];
     $youName = $_POST['youName'];
 
-    $sql = "SELECT youName, youID FROM myMember ";
+    $sql = "SELECT myMemberID, youName, youID FROM myMember ";
     
     if($type === "emailCheck"){
         $youEmail = $_POST['youEmail'];
@@ -23,7 +24,10 @@
     $jsonResult = "bad"; 
 
     if($result -> num_rows === 1) {
-        $jsonResult = "good"."이것은임시비밀번호 입니다.";
+        $newPass = password_hash("tempPass".$info['myMemberID'], PASSWORD_DEFAULT); 
+        $pwChange = "UPDATE myMember SET youPass ='$newPass' WHERE youID = '$youID';";
+        $result = $connect -> query($pwChange);
+        $jsonResult = "good"."tempPass".$info['myMemberID'];
     }
 
     echo json_encode(array("result" => $jsonResult));
