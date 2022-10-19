@@ -10,16 +10,16 @@
 </div>
 <!-- //skip -->
 
-<header id="header">
+<header id="header" class="show">
     <div class="header__inner">
         <div class="left">
-            <a href="http://bb020440.dothome.co.kr/php/main/category_R.php"><span class="blind">메인페이지 이동</span></a>
+            <a href="http://bb020440.dothome.co.kr/php/main/main.php"><span class="blind">메인페이지 이동</span></a>
         </div>
         <div class="middle">
             <ul>
-                <li><a href="Today_issue.html">오늘의 이슈</a></li>
-                <li><a href="http://bb020440.dothome.co.kr/php/main/category_R.php">꿀팁 저장소</a></li>
-                <li><a href="#">QnA</a></li>
+                <li><a href="http://bb020440.dothome.co.kr/php/category/small_cg.php">오늘의 이슈</a></li><!-- 임시 경로 -->
+                <li><a href="http://bb020440.dothome.co.kr/php/category/category_R.php">꿀팁 저장소</a></li>
+                <li><a href="http://bb020440.dothome.co.kr/php/Notice/QnA.php">QnA</a></li>
                 <li><a href="http://bb020440.dothome.co.kr/php/board/notice.php">공지사항</a></li>
             </ul>
         </div>

@@ -43,7 +43,7 @@
                         <div class="clearfix ID">
                             <label for="youID">아이디</label>
                             <input type="text" name="youID" id="youID" required>
-                            <div class="idCheck btn1">중복확인</div>
+                            <div class="idCheck btn1" onclick="idChecking();">중복확인</div>
                             <p class="warning" id="youIDComment"></p>
                         </div>
 

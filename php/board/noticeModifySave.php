@@ -16,7 +16,7 @@
     <?php
         $myNoticeID = $_POST['myNoticeID'];
         $noticeTitle = $_POST['noticeTitle'];
-        $noticeContents = $_POST['noticeContents'];
+        $noticeContents = nl2br($_POST['noticeContents']);
         $myMemberID = $_SESSION['myMemberID'];
         
         $noticeTitle = $connect -> real_escape_string($noticeTitle);

@@ -51,7 +51,7 @@
                             $_SESSION['youID'] = $info['youID'];
                             $_SESSION['youName'] = $info['youName'];
 
-                            Header("Location: http://bb020440.dothome.co.kr/php/main/category_R.php");
+                            Header("Location: http://bb020440.dothome.co.kr/php/category/category_R.php");
                         }
                     } else {
                         msg("에러발생 - 관리자에게 문의하세요!");

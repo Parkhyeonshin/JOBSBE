@@ -80,18 +80,49 @@
         include "../include/footer.php";
     ?>
     <script>
-        let checkBtn1 = document.getElementById("agreeCheck1");
-        let checkBtn2 = document.getElementById("agreeCheck2");
-        let checkBtnAll = document.querySelector("#agreeCheckAll");
-        const checkBtn = document.querySelector(".checkBtn");
+        let checkBtn1 = document.getElementById("agreeCheck1");     // check 01
+        let checkBtn2 = document.getElementById("agreeCheck2");     // check 02
+        let checkBtnAll = document.querySelector("#agreeCheckAll"); // 전체 동의 하기
+        const checkBtn = document.querySelector(".checkBtn");       // 본인 인증 하기
 
         // 전체 동의하기 버튼
         checkBtnAll.addEventListener("click",(e)=>{
-            // let is_checked1 = checkBtn1.checked;
-            // let is_checked2 = checkBtn2.checked;
-            checkBtn2.checked = true;
-            checkBtn1.checked = true;
-        })
+            // 모두 체크 되어 있을 때 모두 체크 풀기
+            if ((checkBtn1.checked && checkBtn2.checked) && e.target.checked === false) {
+                checkBtn1.checked = false;
+                checkBtn2.checked = false;
+            }
+            // 하나씩 체크가 안되어 있을 땐 안된거 체크해주기
+            else if (!checkBtn1.checked && checkBtn2.checked) checkBtn1.checked = true;
+            else if (checkBtn1.checked && !checkBtn2.checked) checkBtn2.checked = true;
+            else {
+                // 모두 아니면 모두 체크해주기
+                checkBtn1.checked = true;
+                checkBtn2.checked = true;
+            }
+        });
+
+        // 전체 동의 체크 + 체크박스 풀었을 때 전체동의가 풀려야 된다.
+        checkBtn1.addEventListener('click', (e) => {
+            // 체크박스 2개 모두 체크되면 전체 체크에 체크해주기
+            if(e.target.checked && checkBtn2.checked) {
+                checkBtnAll.checked = true;
+            }
+            
+            // 체크 안되어 있으면 모두 체크 버튼에 체크 풀어버리기
+            if(e.target.checked === true) return;
+            checkBtnAll.checked = false;
+        });
+        checkBtn2.addEventListener('click', (e) => {
+            // 체크박스 2개 모두 체크되면 전체 체크에 체크해주기
+            if(e.target.checked && checkBtn1.checked) {
+                checkBtnAll.checked = true;
+            }
+
+            // 체크 안되어 있으면 모두 체크 버튼에 체크 풀어버리기
+            if(e.target.checked === true) return;
+            checkBtnAll.checked = false;
+        });
 
         checkBtn.addEventListener("click",(e)=>{
             e.preventDefault()
@@ -106,7 +137,7 @@
             } else {
                 alert("이용약관에 동의해주세요! 🙏")
             }
-        })
+        });
     </script>
 
 </body>

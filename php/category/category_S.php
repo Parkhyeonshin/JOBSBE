@@ -45,61 +45,61 @@
             <h3>분류별로 꿀팁들을 찾아보세요!</h3>
             <div class="category__inner">
                 <div class="categoryIcon">
-                    <a href="#">
+                    <a href="./small_cg.php">
                         <div class="icon icon1"></div>
                         <h4>수리</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="#">
+                    <a href="./small_cg.php">
                         <div class="icon icon2"></div>
                         <h4>가전</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="#">
+                    <a href="./small_cg.php">
                         <div class="icon icon3"></div>
                         <h4>휴대폰</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="#">
+                    <a href="./small_cg.php">
                         <div class="icon icon4"></div>
                         <h4>관리</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="#">
+                    <a href="./small_cg.php">
                         <div class="icon icon5"></div>
                         <h4>기타</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="#">
+                    <a href="./small_cg.php">
                         <div class="icon icon6"></div>
                         <h4>드론</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="#">
+                    <a href="./small_cg.php">
                         <div class="icon icon7"></div>
                         <h4>컴퓨터</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="#">
+                    <a href="./small_cg.php">
                         <div class="icon icon8"></div>
                         <h4>테크</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="#">
+                    <a href="./small_cg.php">
                         <div class="icon icon9"></div>
                         <h4>로봇</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="#">
+                    <a href="./small_cg.php">
                         <div class="icon icon10"></div>
                         <h4>아이디어</h4>
                     </a>

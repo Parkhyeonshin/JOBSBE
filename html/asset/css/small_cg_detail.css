@@ -70,6 +70,15 @@
     margin: 0 auto;
     padding: 20px 0;
 }
+.view__inner .view__hashtag {
+    width: 100%;
+    display: block;
+    color: #666;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 
 
 
@@ -87,6 +96,11 @@
     position: relative;
     cursor: pointer;
 }
+.view__inner .view__text .recom .good.clickedGood{
+    background: black;
+    border-radius: 50%;
+}
+
 
 .view__inner .view__text .recom .good:hover::before {
     content :'추천';
@@ -113,6 +127,11 @@
     position: relative;
     cursor: pointer;
 }
+.view__inner .view__text .recom .bad.clickedBad{
+    background: darkred;
+    border-radius: 50%;
+}
+
 
 .view__inner .view__text .recom .bad:hover::before {
     content :'비추천';
@@ -290,6 +309,37 @@ textarea::placeholder {
     justify-content: space-between;
     align-items: center;
     padding: 60px 0px 320px 0px;
+    position: relative;
+}
+.noPrev {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    display: block;
+    z-index: 3;
+    width: 60px;
+    height: 60px;
+    background: #414ca9;
+    text-align: center;
+    color: white;
+    font-size: 10px;
+    border-radius: 50%;
+    line-height: 60px;
+}
+.noNext {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    display: block;
+    z-index: 3;
+    width: 60px;
+    height: 60px;
+    background: #414ca9;
+    text-align: center;
+    color: white;
+    font-size: 10px;
+    border-radius: 50%;
+    line-height: 60px;
 }
 
 .comment__btn a.prev {
@@ -300,6 +350,7 @@ textarea::placeholder {
     background-position: -0px -280px;
     margin-left: 20px;
 }
+
 
 .comment__btn a.list {
     display: inline-block;

@@ -82,10 +82,11 @@
             for($i=1; $i <= $count; $i++){
                 $info = $result -> fetch_array(MYSQLI_ASSOC);
                 echo "<tr>";
-                echo "<td>".date('Y-m-d', $info['regTime'])."</td>";
                 if(($i === 1 || $i === 2 || $i === 3) && $_GET['page'] < 2){
+                    echo "<td>notice</td>";
                     echo "<td class='bold'><a href='noticeView.php?myNoticeID={$info['myNoticeID']}'>".$info['noticeTitle']."</a></td>";
                 } else {
+                    echo "<td>".date('Y-m-d', $info['regTime'])."</td>";
                     echo "<td><a href='noticeView.php?myNoticeID={$info['myNoticeID']}'>".$info['noticeTitle']."</a></td>";
                 };
                 echo "</tr>";

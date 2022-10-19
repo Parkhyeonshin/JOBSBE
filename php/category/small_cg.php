@@ -76,7 +76,7 @@
             $info = $result -> fetch_array(MYSQLI_ASSOC);
             echo "<div class = 'issue__title'>";
             echo "<h3>";
-            echo "<a href='TipsView.php?myTipsID={$info['myTipsID']}'>".$info['TipsTitle']."</a>";
+            echo "<a href='small_cg_detail.php?myTipsID={$info['myTipsID']}'>".$info['TipsTitle']."</a>";
             echo "</h3>";
             echo "<div class='icon'>";
             echo "<a href='#' class='like'>".$info['TipsLike']."</a>";
@@ -124,18 +124,19 @@
     // 두개의 테이블 join
     $sql = "SELECT b.myTipsID, b.TipsTitle, b.TipsView, b.TipsLike, b.regTime FROM myTips b JOIN myMember m ON (b.myMemberID = m.myMemberID) ORDER BY myTipsID DESC LIMIT {$viewLimit}, {$viewNum}";
     $result = $connect -> query($sql);
-    $info = $result -> fetch_array(MYSQLI_ASSOC);
+    // $info = $result -> fetch_array(MYSQLI_ASSOC);
     if($result){
         $count = $result -> num_rows;
         if($count > 0){
             if(!$info['TipsLike']){
                 $info['TipsLike'] = 0;
-            }else{};
+            }
             for($i =1; $i <= $count; $i++){
+                $info = $result -> fetch_array(MYSQLI_ASSOC);
                 echo "<article class='cont'>";
                 echo "<div class='info__title'>";
                 echo "<h3>";
-                echo "<a href='#'>".$info['TipsTitle']."</a></h3>";
+                echo "<a href='small_cg_detail.php?myTipsID={$info['myTipsID']}'>".$info['TipsTitle']."</a></h3>";
                 echo "<div class='icon'>";
                 echo "<a href='#' class='like'>".$info['TipsLike']."</a>";
                 echo "<a href='#' class='view'>".$info['TipsView']."</a></div>";
@@ -167,7 +168,7 @@
                     </div>
                 </article> -->
                 <!-- //cont1 -->
-                <div class="Tips__pages">
+                <div class="small_cg_page">
                     <ul>
 <?php
     $sql = "SELECT count(myTipsID) FROM myTips";
@@ -188,8 +189,8 @@
     // 이전 페이지, 처음 페이지
     if($page != 1){
         $prevPage = $page - 1;
-        echo "<li><a href='small_cg.php?page=1'>처음으로</a></li>";
-        echo "<li><a href='small_cg.php?page={$prevPage}'>이전</a></li>";
+        echo "<li><a href='small_cg.php?page=1' class='firstPage'></a></li>";
+        echo "<li><a href='small_cg.php?page={$prevPage}' class='prev'></a></li>";
     }
     // 페이지 넘버 표시
     for($i=$startPage; $i<=$endPage; $i++){
@@ -200,8 +201,8 @@
     // 다음 페이지, 마지막 페이지
     if($page != $endPage){
         $nextPage = $page + 1;
-        echo "<li><a href='small_cg.php?page={$nextPage}'>다음</a></li>";
-        echo "<li><a href='small_cg.php?page={$boardCount}'>마지막으로</a></li>";
+        echo "<li><a href='small_cg.php?page={$nextPage}' class='next'></a></li>";
+        echo "<li><a href='small_cg.php?page={$boardCount}' class='endPage'></a></li>";
     }
 ?>
                         <!-- <li><a href="#">처음으로</a></li>
@@ -210,9 +211,6 @@
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
                         <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">6</a></li>
-                        <li><a href="#">7</a></li>
                         <li><a href="#">다음</a></li>
                         <li><a href="#">마지막으로</a></li> -->
                     </ul>
@@ -227,6 +225,11 @@
         <!-- //ad -->
     </main>
     <!-- //main -->
+
+
+    <?php
+        include "../include/footer.php";
+    ?>
 </body>
 
 </html>

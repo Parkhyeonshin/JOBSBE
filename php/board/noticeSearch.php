@@ -61,7 +61,7 @@
 
     $sql = "SELECT b.myNoticeID, b.noticeTitle, b.noticeContents, b.regTime FROM myNotice b JOIN myMember m ON(b.myMemberID = m.myMemberID)";
 
-    $sql .= "WHERE b.noticeTitle LIKE '%{$searchKeyword}%' ORDER BY myNoticeID DESC ";
+    $sql .= "WHERE b.noticeTitle LIKE '%{$searchKeyword}%' ORDER BY regTime DESC ";
 
     $result = $connect -> query($sql);
     // echo $sql;
@@ -92,10 +92,11 @@
             for($i=1; $i <= $count; $i++){
                 $info = $result -> fetch_array(MYSQLI_ASSOC);
                 echo "<tr>";
-                echo "<td>".date('Y-m-d', $info['regTime'])."</td>";
                 if($info['myNoticeID'] == $count-1 || $info['myNoticeID'] == $count-2 || $info['myNoticeID'] == $count-3){
+                    echo "<td>notice</td>";
                     echo "<td class='bold'><a href='noticeView.php?myNoticeID={$info['myNoticeID']}'>".$info['noticeTitle']."</a></td>";
                 } else {
+                    echo "<td>".date('Y-m-d', $info['regTime'])."</td>";
                     echo "<td><a href='noticeView.php?myNoticeID={$info['myNoticeID']}'>".$info['noticeTitle']."</a></td>";
                 };
                 echo "</tr>";
