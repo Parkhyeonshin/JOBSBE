@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1:1 문의하기</title>
     <link rel="stylesheet" href="../../html/asset/css/style.css">
+
+    <?php 
+        include "../include/link.php";
+    ?>
 </head>
 <body>
     <?php
@@ -24,6 +28,10 @@
                                 <option value="이용문의">이용 문의</option>
                                 <option value="계정">계정</option>
                             </select>
+                        </div>
+                        <div>
+                            <label for="inquiryEmail">이메일</label>
+                            <input type="email" name="inquiryEmail" id="inquiryEmail" placeholder="이메일을 입력하세요" required>
                         </div>
                         <div>
                             <label for="inquiryWirte">제목</label>

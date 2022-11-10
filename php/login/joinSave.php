@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입 완료</title>
+
+    <?php 
+        include "../include/link.php";
+    ?>
 </head>
 <body>
     <main id="main">
@@ -14,7 +18,7 @@
     $youBirth = $_POST['youBirth'];
     $youID = $_POST['youID'];
     $youPass = $_POST['youPass'];
-    $youAddress = $_POST['youAddress1']." ".$_POST['youAddress2']." ".$_POST['youAddress3']." ";
+    $youAddress = $_POST['youAddress1']."*".$_POST['youAddress2']."*".$_POST['youAddress3'];
     $youPhone = $_POST['youPhone'];
     $youEmail = $_POST['youEmail'];
     $regTime = time();

@@ -8,6 +8,10 @@
     <title>FAQ</title>
     <link rel="stylesheet" href="../../html/asset/css/style.css">
     <link rel="stylesheet" href="../../html/asset/css/FAQ.css">
+
+    <?php 
+        include "../include/link.php";
+    ?>
 </head>
 
 <body>

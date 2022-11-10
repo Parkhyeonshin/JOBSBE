@@ -1,5 +1,3 @@
-<!-- STYLE -->
-<link rel="stylesheet" href="../../html/asset/css/style.min.css">
 
 <!-- SEO -->
 <meta name="author" content="kim0617">
@@ -14,3 +12,6 @@
 <link rel="icon" type="image/png" sizes="192x192" href="../../html/asset/img/icon_192.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="../../html/asset/img/icon_32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="../../html/asset/img/icon_16.png" />
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-635f137d7a46355d"></script>

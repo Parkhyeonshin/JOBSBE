@@ -12,6 +12,10 @@
     <title>공지사항 글보기</title>
     <link rel="stylesheet" href="../../html/asset/css/style.css">
     <link rel="stylesheet" href="../../html/asset/css/noticeView.css">
+
+    <?php 
+        include "../include/link.php";
+    ?>
 </head>
 <body>
     <?php

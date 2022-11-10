@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="../../html/asset/css/style.css">
     <link rel="stylesheet" href="../../html/asset/css/jobsbeeMain.css">
 
+    <?php 
+        include "../include/link.php";
+    ?>
+
     <style>
         #category {margin-bottom: 0;}
     </style>
@@ -43,10 +47,11 @@
 
     $JsearchKeyword = $_GET['JsearchKeyword'];
     $JsearchKeyword = $connect -> real_escape_string(trim($JsearchKeyword));
+    // $sql = "SELECT b.myTipsID, b.TipsTitle, b.TipsCateBig, b.TipsCateSmall FROM myTips b JOIN myMember m ON (b.myMemberID = m.myMemberID) ";
+    $sql = "SELECT * FROM myTips WHERE TipsTitle LIKE '%$JsearchKeyword%' ORDER BY TipsLike DESC";
+    // $sql = "SELECT b.myNoticeID, b.noticeTitle, b.noticeContents, b.regTime FROM myNotice b JOIN myMember m ON(b.myMemberID = m.myMemberID)";
 
-    $sql = "SELECT b.myNoticeID, b.noticeTitle, b.noticeContents, b.regTime FROM myNotice b JOIN myMember m ON(b.myMemberID = m.myMemberID)";
-
-    $sql .= "WHERE b.noticeTitle LIKE '%{$JsearchKeyword}%' ORDER BY myNoticeID DESC ";
+    // $sql .= "WHERE b.TipsTitle LIKE '%{$JsearchKeyword}%' ORDER BY TipsLike DESC ";
 
     $result = $connect -> query($sql);
 
@@ -62,15 +67,16 @@
         if($count > 0){
             for($i=1; $i <= $count; $i++){
                 $info = $result -> fetch_array(MYSQLI_ASSOC);
-                echo "<li><a href='../board/noticeView.php?myNoticeID={$info['myNoticeID']}'>".$info['noticeTitle']."</a></li>";
+                echo "<li><a href='http://bb020440.dothome.co.kr/php/category/small_cg_detail.php?categoryBig={$info['TipsCateBig']}&categorySmall={$info['TipsCateSmall']}&myTipsID={$info['myTipsID']}'>".$info['TipsTitle']."</a></li>";
+                // http://bb020440.dothome.co.kr/php/category/small_cg_detail.php?myTipsID=7
             }
         } 
         else {
             echo "<p>그래도 걱정마세요!<br>QnA 게시판에 궁금한 점을<br>직접 물어볼 수 있어요.</p>";
-            echo "<a class='goQNABtn' href='http://bb020440.dothome.co.kr/php/Notice/QnA.php'>QnA 게시판으로 이동하기</a>";
+            echo "<a class='goQNABtn' href='http://bb020440.dothome.co.kr/php/Notice/QnACate.php'>QnA 게시판으로 이동하기</a>";
         }
     }
-?>
+    ?>
                         </ul>
                         <!-- 결과 있음 -->
                         <!-- <h2>
@@ -97,7 +103,7 @@
                             QnA 게시판에 궁금한 점을<br>
                             직접 물어볼 수 있어요.
                         </p>
-                        <a class="goQNABtn" href="QnA.html">QnA 게시판으로 이동하기</a> -->
+                        <a class="goQNABtn" href="http://bb020440.dothome.co.kr/php/Notice/QnACate.php">QnA 게시판으로 이동하기</a> -->
                     </div>
                     <div class="jobsbeeIcon searchYes"></div>
                 </div>

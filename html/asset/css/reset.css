@@ -154,7 +154,8 @@ button {
     left: 5px;
 }
 
-/* body 백그라운드 */
+/* body 백그라운드, 최소높이 */
 body{
     background: #f5f5f5;
+    box-sizing:border-box;
 }

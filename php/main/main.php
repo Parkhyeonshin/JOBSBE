@@ -1,5 +1,5 @@
 <?php
-    // include "../connect/session.php";
+    include "../connect/session.php";
     include "../connect/connect.php";
 
     // echo "<pre>";
@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="../../html/asset/css/jobsbeeMain.css">
     <link rel="stylesheet" href="../../html/asset/css/category_R.css">
     <link rel="stylesheet" href="../../html/asset/css/category_S.css">
+
+    <?php 
+        include "../include/link.php";
+    ?>
 
     <style>
         #category {margin-bottom: 0;}
@@ -48,6 +52,7 @@
                                 <button type="submit" class="JsearchBtn"><span class="blind">검색</span></button>
                             </fieldset>
                         </form>
+                        <p class="reco__keyword">추천 키워드 : <span>팁</span>, <span>운세</span>, <span>가을</span>, <span>여름</span>, <span>요리</span></p>
                     </div>
                     <div class="jobsbeeIcon"></div>
                 </div>
@@ -60,65 +65,65 @@
             <h3>분류별로 꿀팁들을 찾아보세요!</h3>
             <div class="category__inner">
                 <div class="categoryIcon">
-                    <a href="../category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=건강">
                         <div class="icon icon1"></div>
                         <h4>건강</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="../category/category_S.php">
+                <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=전자기기">
                         <div class="icon icon2"></div>
                         <h4>전자기기</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="../category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=청소">
                         <div class="icon icon3"></div>
                         <h4>청소</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="../category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=취미">
                         <div class="icon icon4"></div>
                         <h4>취미</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="../category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=라이프스타일">
                         <div class="icon icon5"></div>
                         <h4>라이프 스타일</h4>
                     </a>
                 </div>
-                <div class="categoryIcon">
-                    <a href="../category/category_S.php">
+                <!-- <div class="categoryIcon">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=건강">
                         <div class="icon icon6"></div>
                         <h4>건강</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="../category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=전자기기">
                         <div class="icon icon7"></div>
                         <h4>전자기기</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="../category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=청소">
                         <div class="icon icon8"></div>
                         <h4>청소</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="../category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=취미">
                         <div class="icon icon9"></div>
                         <h4>취미</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="../category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=라이프스타일">
                         <div class="icon icon10"></div>
                         <h4>라이프 스타일</h4>
                     </a>
-                </div>
+                </div> -->
             </div>
         </section>
         <!-- //category -->
@@ -127,9 +132,50 @@
             <h3>오늘의 '<em>통합</em>' 꿀팁 <em>BEST_3</em></h3>
             <div class="list__inner">
                 <ul>
-                    <li class="gold"><a href="#"><h4>고기만두 최고의 짝꿍은 김치만두?!</h4></a></li>
-                    <li class="silver"><a href="#"><h4>아이디를 교자만두로 만들면 모든 사이트 기능을 사용할 수 있다?!</h4></a></li>
-                    <li class="bronze"><a href="#"><h4>잡스비 만두가게 개업설</h4></a></li>
+<?php
+    $candidate = array();
+    $targetDate = strtotime(date("Y-m-d"));
+
+    $dateSql = "SELECT myTipsID, regTime FROM myTips ORDER BY TipsView DESC";
+    $dateResult = $connect -> query($dateSql);
+
+    $t = 0;
+    foreach($dateResult as $date) {
+        if(strtotime(date('Y-m-d', $date['regTime'])) == $targetDate) {
+            $candidate[$t] = $date['myTipsID'];
+            $t++;
+        }
+        if($t >= 3) break;
+    }
+
+    $dateCount = count($candidate);
+    if($dateCount == 0) {
+        echo "<div style='padding:20px;'>오늘의 이슈가 없습니다.</div>";
+        exit;
+    }
+    
+    $tips = array();
+    for ($j = 0; $j < count($candidate); $j++) {
+        $target = $candidate[$j];
+        $getTips = "SELECT * FROM myTips WHERE myTipsID=$target";
+        $getTipsResult = $connect -> query($getTips);
+        $info = $getTipsResult -> fetch_array(MYSQLI_ASSOC);
+        $tips[$j] = $info;
+    }
+
+    if(count($tips) === 1) {
+        echo "<li class='gold'><a href='http://bb020440.dothome.co.kr/php/category/small_cg_detail.php?categoryBig={$tips[0]['TipsCateBig']}&categorySmall={$tips[0]['TipsCateSmall']}&myTipsID={$tips[0]['myTipsID']}'><h4>".$tips[0]['TipsTitle']."</h4></a></li>";
+    }
+    else if(count($tips) === 2) {
+        echo "<li class='gold'><a href='http://bb020440.dothome.co.kr/php/category/small_cg_detail.php?categoryBig={$tips[0]['TipsCateBig']}&categorySmall={$tips[0]['TipsCateSmall']}&myTipsID={$tips[0]['myTipsID']}'><h4>".$tips[0]['TipsTitle']."</h4></a></li>"; 
+        echo "<li class='silver'><a href='http://bb020440.dothome.co.kr/php/category/small_cg_detail.php?categoryBig={$tips[1]['TipsCateBig']}&categorySmall={$tips[1]['TipsCateSmall']}&myTipsID={$tips[1]['myTipsID']}'><h4>".$tips[1]['TipsTitle']."</h4></a></li>";
+    }
+    else {
+        echo "<li class='gold'><a href='http://bb020440.dothome.co.kr/php/category/small_cg_detail.php?categoryBig={$tips[0]['TipsCateBig']}&categorySmall={$tips[0]['TipsCateSmall']}&myTipsID={$tips[0]['myTipsID']}'><h4>".$tips[0]['TipsTitle']."</h4></a></li>"; 
+        echo "<li class='silver'><a href='http://bb020440.dothome.co.kr/php/category/small_cg_detail.php?categoryBig={$tips[1]['TipsCateBig']}&categorySmall={$tips[1]['TipsCateSmall']}&myTipsID={$tips[1]['myTipsID']}'><h4>".$tips[1]['TipsTitle']."</h4></a></li>";
+        echo "<li class='bronze'><a href='http://bb020440.dothome.co.kr/php/category/small_cg_detail.php?categoryBig={$tips[2]['TipsCateBig']}&categorySmall={$tips[2]['TipsCateSmall']}&myTipsID={$tips[2]['myTipsID']}'><h4>".$tips[2]['TipsTitle']."</h4></a></li>";
+    }
+?>
                 </ul>
             </div>
         </section>
@@ -160,6 +206,7 @@
                 document.querySelector("#header").classList.add("show");
             } else {
                 document.querySelector("#header").classList.remove("show");
+                document.querySelector("#headerAlertPopup").classList.remove("show");
             }
             requestAnimationFrame(scroll);
         }

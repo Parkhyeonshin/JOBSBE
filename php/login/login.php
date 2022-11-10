@@ -85,7 +85,7 @@
 
             <div class="login__result">
                 <div class="join btn2 fs">로그인</div>
-                <div class="findPW btn3 fs">비밀번호 찾기</div> // 여기
+                <div class="findPW btn3 fs">비밀번호 찾기</div>
             </div>
         </div>
         <!-- // 아이디 찾기 결과 -->
@@ -202,7 +202,7 @@
                         <label for="email" class="blind">이메일</label>
                         <input type="email" name="email" id="email" placeholder="이메일" required>
                     </div>
-                    <a href="#" class="btn3">인증번호 발송</a>
+                    <a href="#c" class="btn3">인증번호 발송</a>
                     <p class="userCheckNum"></p>
                     <!-- <input type="hidden" name="emailCheckNum" id="emailCheckNum"> -->
                     <div>
@@ -238,7 +238,7 @@
                         <label for="phoneNumber" class="blind">휴대폰</label>
                         <input type="text" name="phoneNumber" id="phoneNumber" placeholder="휴대폰 번호" required>
                     </div>
-                    <a href="#" class="btn3">인증번호 발송</a>
+                    <a href="#c" class="btn3">인증번호 발송</a>
                     <p class="userCheckNum"></p>
                     <!-- <input type="hidden" name="phoneCheckNum" id="phoneCheckNum"> -->
                     <div>
@@ -272,6 +272,13 @@
 </div>
 
 <script>
+    // 클릭 막기
+    let stopClick = false;
+    let stopClick2 = false;
+    // 서브밋 막기
+    let stopSubmit = false;
+    let stopSubmit2 = false;
+
     // 01번째 섹션
     // 로그인 관련 폼들 선택자
     const LoginMain = document.querySelector(".login__inner.LoginMain");
@@ -323,9 +330,23 @@
             LoginMain.style.display = 'block';
         });
     }
+
+    SearchIDResult.querySelector('.join').addEventListener('click', () => {
+        array.forEach((form) => {
+            form.style.display = 'none';
+        });
+        LoginMain.style.display = 'block';
+    });
     
     // X 버튼을 클릭했을 때
     loginClose.addEventListener("click", () => {
+        stopClick = false;
+        stopClick2 = false;
+        stopSubmit = false;
+        stopSubmit2 = false;
+
+        document.querySelector('.AuthEmail form fieldset input#email').disabled = false;
+        document.querySelector('.AuthPhone form fieldset input#phoneNumber').disabled = false;
         loginBg.classList.remove("open");
         loginPopup.classList.remove("open");
         array.forEach((form) => {
@@ -333,6 +354,7 @@
         });
         
         LoginMain.style.display = 'block';
+        clearTimeLimit();
     });
 
     // 비밀번호 찾기 버튼 01
@@ -363,7 +385,7 @@
     subLogin.addEventListener('click', () => {
         alert("기다리세요");
     });
-
+    
     // 아이디찾기
     const findID = document.querySelector('.findID');
     findID.addEventListener('click', () => {
@@ -412,6 +434,7 @@
     // 휴대폰 번호로 인증하기 버튼(본인인증)
     const otherAuthBtnP = document.querySelector('.otherAuthBtnP');
     otherAuthBtnP.addEventListener('click', () => {
+        clearTimeLimit()
         array.forEach((form) => {
             form.style.display = 'none';
         });
@@ -421,6 +444,7 @@
     // 이메일로 인증하기 버튼(본인인증)
     const otherAuthBtnE = document.querySelector('.otherAuthBtnE');
     otherAuthBtnE.addEventListener('click', () => {
+        clearTimeLimit()
         array.forEach((form) => {
             form.style.display = 'none';
         });
@@ -430,6 +454,14 @@
     // 비밀번호 찾기 완료 후 로그인
     const pwFindResultLoginBtn = document.querySelector('.SearchPWResult .join');
     pwFindResultLoginBtn.addEventListener('click', () => {
+        array.forEach((form) => {
+            form.style.display = 'none';
+        });
+        LoginMain.style.display = 'block';
+    });
+    // 아이디 찾기 완료 후 로그인
+    const idFindResultLoginBtn = document.querySelector('.SearchIDResult .join');
+    idFindResultLoginBtn.addEventListener('click', () => {
         array.forEach((form) => {
             form.style.display = 'none';
         });
@@ -481,6 +513,7 @@
     const AuthPhoneBtn = document.querySelector('.AuthPhone button'); // 휴대폰번호 본인인증 제출 버튼
     const AuthPhoneForm = document.querySelector('.AuthPhone form'); // 휴대폰번호 본인인증 폼
 
+    let x;
     //setTimeLimit() 시간제한 생성 함수
     function setTimeLimit(num){
         let i = num;
@@ -488,7 +521,7 @@
         let min = "";   //분
         let sec = "";   //초
 
-        let x = setInterval(() => {
+        x = setInterval(() => {
             min = parseInt(time/60);
             sec = time%60;
             if(sec < 10){
@@ -501,36 +534,57 @@
             if( time < 0) {
                 clearInterval(x);
                 timeLimit[i].innerText = "시간초과";
+                stopClick = false;
+                stopClick2 = false;
             }
         }, 1000);
     }
 
+    function clearTimeLimit(){
+        for(let i in CheckP){
+            clearInterval(x);
+            timeLimit[i].innerText = "";
+            CheckP[i].innerHTML = "";
+        }
+    }
+
     //이메일 인증하기 버튼을 누르면 랜덤 인증번호가 나오게 + 시간제한
     doAuthEmail.addEventListener("click", ()=>{
+        console.log(stopClick)
+        if(stopClick) return;
+        stopClick = true;
+
         let inputEmailTxt = document.querySelector('.AuthEmail form fieldset input#email').value;
-        let randomNum = Math.floor(Math.random() * 100000);
-        
-        // 이메일란이 공백인지 확인
-        if(inputEmailTxt != null && inputEmailTxt != ""){
-            // 이메일이 올바르게 작성되었는지 확인
-            let reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-            if(!reg_email.test(inputEmailTxt)){   
-                alert("올바른 이메일을 입력해 주세요.");
-            }             
-            else{           
-                CheckP[0].innerHTML = `인증번호는 : <strong>${randomNum}</strong>`;
-                // emailCheckNum.value = `${randomNum}`;
-                setTimeLimit(0);  
-            }
-        } else {
+        if(inputEmailTxt == "") {
             alert("이메일을 입력해 주세요!");
+            stopClick = false;
+            document.querySelector('.AuthEmail form fieldset input#email').disabled = false;
+            return;
+        }
+
+        clearInterval(x);
+        document.querySelector('.AuthEmail form fieldset input#email').disabled = true;
+        let randomNum = Math.floor(Math.random() * 100000);
+        console.log("here")
+
+        // 이메일이 올바르게 작성되었는지 확인
+        let reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+        if(!reg_email.test(inputEmailTxt)){   
+            alert("올바른 이메일을 입력해 주세요.");
+            stopClick = false;
+        }             
+        else{           
+            CheckP[0].innerHTML = `인증번호는 : <strong>${randomNum}</strong>`;
+            // emailCheckNum.value = `${randomNum}`;
+            setTimeLimit(0);  
         }
 
         function AuthCheckFnc(e) {
+            if(stopSubmit) return;
+            stopSubmit = true;
             e.preventDefault();
             let ECheckNumber = document.querySelector('.AuthEmail form fieldset input#EmailCheckNumber').value;
             if(ECheckNumber == randomNum){
-                // alert("인증번호가 일치합니다!");
                 array.forEach((form) => {
                 form.style.display = 'none';
                 });
@@ -538,6 +592,7 @@
             } else {
                 alert("인증번호를 정확하게 입력해 주세요!");
             }
+            stopSubmit = false;
         }
         // 제출버튼 클릭 후 인증번호가 일치하는지 확인
         AuthEmailBtn.addEventListener("click", ()=>{
@@ -548,25 +603,34 @@
 
     //휴대폰 인증하기 버튼을 누르면 랜덤 인증번호가 나오게 + 시간제한
     doAuthPhone.addEventListener("click", ()=>{
+        if(stopClick2) return;
+        stopClick2 = true;
+
+        // 번호란이 공백인지 확인
         let inputPhoneTxt = document.querySelector('.AuthPhone form fieldset input#phoneNumber').value;
+        if(inputPhoneTxt == ""){
+            alert("휴대폰 번호를 입력해 주세요!");
+            document.querySelector('.AuthPhone form fieldset input#phoneNumber').disabled = false;
+            stopClick2 = false;
+        }
+        clearInterval(x);
+
+        document.querySelector('.AuthPhone form fieldset input#phoneNumber').disabled = true;
         let randomNum = Math.floor(Math.random() * 100000);
         
-        // 번호란이 공백인지 확인
-        if(inputPhoneTxt != null && inputPhoneTxt != ""){
-            // 번호가 올바르게 작성되었는지 확인
-            let reg_phone = /^(010|011|016|017|018|019)-[0-9]{3,4}-[0-9]{4}$/;
-            if(!reg_phone.test(inputPhoneTxt)){   
-                alert("올바른 휴대폰 번호를 입력해 주세요.");
-            }             
-            else{           
-                CheckP[1].innerHTML = `인증번호는 : <strong>${randomNum}</strong>`;
-                setTimeLimit(1);  
-            }
-        } else {
-            alert("휴대폰 번호를 입력해 주세요!");
+        let reg_phone = /^(010|011|016|017|018|019)-[0-9]{3,4}-[0-9]{4}$/;
+        if(!reg_phone.test(inputPhoneTxt)){   
+            alert("올바른 휴대폰 번호를 입력해 주세요.");
+            stopClick2 = false;
+        }             
+        else{           
+            CheckP[1].innerHTML = `인증번호는 : <strong>${randomNum}</strong>`;
+            setTimeLimit(1);  
         }
 
         function AuthCheckFnc2(e) {
+            if(stopSubmit2) return;
+            stopSubmit2 = true;
             e.preventDefault();
             let PCheckNumber = document.querySelector('.AuthPhone form fieldset input#PhoneCheckNumber').value;
             if(PCheckNumber == randomNum){
@@ -576,8 +640,10 @@
                 });
                 AuthPhoneResult.style.display = 'block';
             } else {
-                alert("인증번호를 정확하게 입력해 주세요!");
+                console.log("phone")
+                alert("휴대폰 - 인증번호를 정확하게 입력해 주세요!");
             }
+            stopSubmit2 = false;
         }
         // 제출버튼 클릭 후 인증번호가 일치하는지 확인
         AuthPhoneBtn.addEventListener("click", ()=>{
@@ -628,7 +694,6 @@
     }
 
     function PWChange() {
-        console.log(mySessionID);
         let password = $('#password').val();
         let passwordCheck = $('#passwordCheck').val();
 
@@ -772,7 +837,6 @@
                     SearchPWResult.querySelector('span').innerText = data.result.replace("good", "");
                     SearchPWResult.style.display = 'block';
                     mySessionID = data.result.replace("good", "").replace("tempPass", "");
-                    console.log(data.result, mySessionID);
                 }
                 else {
                     alert("그런 정보가 없습니다.");

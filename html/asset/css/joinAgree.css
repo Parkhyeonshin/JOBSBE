@@ -1,4 +1,3 @@
-
 .AgreeBox > div {
     margin-bottom: 20px;
     display: flex;
@@ -81,6 +80,11 @@
     background: #414ca9;
     color: white;
     transition: all 0.3s;
+}
+.AgreeBox.UseAgree,
+.AgreeBox.Privacy { height: auto; }
+.AgreeBox.Privacy .Agree_desc p {
+    overflow-y: scroll;
 }
 
 @media (max-width:770px) {

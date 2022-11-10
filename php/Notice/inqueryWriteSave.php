@@ -8,6 +8,7 @@
     $inquiryTitle = $_POST['inquiryWirte'];
     $inquiryContents = $_POST['inquiryDesc'];
     $inquiryCategory = $_POST['searchOption'];
+    $inquiryEmail = $_POST['inquiryEmail'];
 
     $regTime = time();
     $blogImgFile = $_FILES['myfile'];
@@ -25,13 +26,13 @@
             if($fileExtension == "jpg" || $fileExtension == "jpeg" || $fileExtension == "png" || $fileExtension == "gif"){
                 $blogImgDir = "http://bb020440.dothome.co.kr/php/Notice/img/";
                 $blogImgName = "Img_".time().rand(1,99999)."."."{$fileExtension}";
-                $sql = "INSERT INTO myInquiry(myMemberID, inquiryTitle, inquiryContents, inquiryCategory, inquiryAuthor, blogImgFile, blogImgSize, regTime) VALUES('$myMemberID', '$inquiryTitle', '$inquiryContents', '$inquiryCategory', '$inquiryAuthor', '$blogImgName', '$blogImgSize', '$regTime')";
+                $sql = "INSERT INTO myInquiry(myMemberID, youEmail, inquiryTitle, inquiryContents, inquiryCategory, inquiryAuthor, blogImgFile, blogImgSize, regTime) VALUES('$myMemberID', '$inquiryEmail', '$inquiryTitle', '$inquiryContents', '$inquiryCategory', '$inquiryAuthor', '$blogImgName', '$blogImgSize', '$regTime')";
             } else {
                 echo "<script>alert('지원하는 이미지 파일이 아닙니다.'); history.back(1)</script>";
             }
             }
         } else {
-            $sql = "INSERT INTO myInquiry(myMemberID, inquiryTitle, inquiryContents, inquiryCategory, inquiryAuthor, blogImgFile, blogImgSize, regTime) VALUES('$myMemberID', '$inquiryTitle', '$inquiryContents', '$inquiryCategory', '$inquiryAuthor', 'Img_default.jpg', '$blogImgSize', '$regTime')";
+            $sql = "INSERT INTO myInquiry(myMemberID, youEmail, inquiryTitle, inquiryContents, inquiryCategory, inquiryAuthor, blogImgFile, blogImgSize, regTime) VALUES('$myMemberID', '$inquiryEmail', '$inquiryTitle', '$inquiryContents', '$inquiryCategory', '$inquiryAuthor', 'Img_default.jpg', '$blogImgSize', '$regTime')";
             echo "이미지 파일이 첨부하지 않았습니다.";
         }
         //이미지 사이즈 확인
@@ -42,6 +43,5 @@
 
         $result = $connect -> query($sql);
         $result = move_uploaded_file($blogImgDir, $blogImgName);
-
         Header("Location: FaQ.php");
 ?>

@@ -26,11 +26,13 @@
     margin-bottom: 30px;
     text-align: center;
     transition: border 0.2s;
+    box-shadow: 0px 0px 5px #dbdbdb;
 }
 .categoryIcon:hover {
     border: 4px solid #414ca9;
 }
-.categoryIcon a {}
+.categoryIcon a {
+}
 .categoryIcon a .icon {
     display: inline-block;
     width: 90px;
@@ -38,15 +40,33 @@
     background: url(../img/categoryIcons.svg);
     margin-bottom: 25px;
 }
-.categoryIcon a .icon.icon2 {background-position: -120px 0;}
-.categoryIcon a .icon.icon3 {background-position: -240px 0;}
-.categoryIcon a .icon.icon4 {background-position: -360px 0;}
-.categoryIcon a .icon.icon5 {background-position: -480px 0;}
-.categoryIcon a .icon.icon6 {background-position: 0 -120px;}
-.categoryIcon a .icon.icon7 {background-position: -120px -120px;}
-.categoryIcon a .icon.icon8 {background-position: -240px -120px;}
-.categoryIcon a .icon.icon9 {background-position: -360px -120px;}
-.categoryIcon a .icon.icon10 {background-position: -480px -120px;}
+.categoryIcon a .icon.icon2 {
+    background-position: -120px 0;
+}
+.categoryIcon a .icon.icon3 {
+    background-position: -240px 0;
+}
+.categoryIcon a .icon.icon4 {
+    background-position: -360px 0;
+}
+.categoryIcon a .icon.icon5 {
+    background-position: -480px 0;
+}
+.categoryIcon a .icon.icon6 {
+    background-position: 0 -120px;
+}
+.categoryIcon a .icon.icon7 {
+    background-position: -120px -120px;
+}
+.categoryIcon a .icon.icon8 {
+    background-position: -240px -120px;
+}
+.categoryIcon a .icon.icon9 {
+    background-position: -360px -120px;
+}
+.categoryIcon a .icon.icon10 {
+    background-position: -480px -120px;
+}
 .categoryIcon a h4 {
     text-align: center;
     font-size: 23px;
@@ -58,7 +78,7 @@
     }
     .category__inner {
         display: flex;
-        justify-content:left;
+        justify-content: left;
         flex-wrap: wrap;
     }
     .categoryIcon {
@@ -66,7 +86,7 @@
         margin-right: 3%;
     }
     .categoryIcon a h4 {
-        word-break:keep-all;
+        word-break: keep-all;
         font-size: 1.3rem;
     }
 }
@@ -76,7 +96,7 @@
     }
     .category__inner {
         display: flex;
-        justify-content:left;
+        justify-content: left;
         flex-wrap: wrap;
     }
     .categoryIcon {
@@ -84,7 +104,7 @@
         margin-right: 3%;
     }
     .categoryIcon a h4 {
-        word-break:keep-all;
+        word-break: keep-all;
         font-size: 1.3rem;
     }
 }
@@ -94,7 +114,7 @@
     }
     .category__inner {
         display: flex;
-        justify-content:left;
+        justify-content: left;
         flex-wrap: wrap;
     }
     .categoryIcon {
@@ -102,7 +122,7 @@
         margin-right: 3%;
     }
     .categoryIcon a h4 {
-        word-break:keep-all;
+        word-break: keep-all;
         font-size: 1.3rem;
     }
 }

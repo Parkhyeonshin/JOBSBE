@@ -1,7 +1,6 @@
 <?php
     if(!isset($_SESSION['myMemberID'])) {
-        // 로그인 페이지 이동
-        Header("Location: ../main/alert.php");
-        // echo "로그인을 먼저 해주세요!!";
+        echo "<script>alert('로그인이 필요한 서비스네요?');</script>";
+        echo "<script>history.back(1);</script>";
     } 
 ?>

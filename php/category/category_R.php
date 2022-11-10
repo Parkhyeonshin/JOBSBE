@@ -8,6 +8,10 @@
     <title>대분류 카테고리 페이지</title>
     <link rel="stylesheet" href="../../html/asset/css/style.css">
     <link rel="stylesheet" href="../../html/asset/css/category_R.css">
+
+    <?php 
+        include "../include/link.php";
+    ?>
 </head>
 
 <body>
@@ -44,62 +48,32 @@
             <h3>분류별로 꿀팁들을 찾아보세요!</h3>
             <div class="category__inner">
                 <div class="categoryIcon">
-                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=건강">
                         <div class="icon icon1"></div>
                         <h4>건강</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=전자기기">
                         <div class="icon icon2"></div>
                         <h4>전자기기</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=청소">
                         <div class="icon icon3"></div>
                         <h4>청소</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=취미">
                         <div class="icon icon4"></div>
                         <h4>취미</h4>
                     </a>
                 </div>
                 <div class="categoryIcon">
-                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php">
+                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php?categoryBig=라이프스타일">
                         <div class="icon icon5"></div>
-                        <h4>라이프 스타일</h4>
-                    </a>
-                </div>
-                <div class="categoryIcon">
-                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php">
-                        <div class="icon icon6"></div>
-                        <h4>건강</h4>
-                    </a>
-                </div>
-                <div class="categoryIcon">
-                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php">
-                        <div class="icon icon7"></div>
-                        <h4>전자기기</h4>
-                    </a>
-                </div>
-                <div class="categoryIcon">
-                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php">
-                        <div class="icon icon8"></div>
-                        <h4>청소</h4>
-                    </a>
-                </div>
-                <div class="categoryIcon">
-                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php">
-                        <div class="icon icon9"></div>
-                        <h4>취미</h4>
-                    </a>
-                </div>
-                <div class="categoryIcon">
-                    <a href="http://bb020440.dothome.co.kr/php/category/category_S.php">
-                        <div class="icon icon10"></div>
                         <h4>라이프 스타일</h4>
                     </a>
                 </div>

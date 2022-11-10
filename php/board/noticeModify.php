@@ -10,8 +10,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>꿀팁 수정하기</title>
+    <title>공지사항 수정하기</title>
     <link rel="stylesheet" href="../../html/asset/css/style.css">
+
+    <?php 
+        include "../include/link.php";
+    ?>
 </head>
 <body>
     <?php
@@ -20,7 +24,7 @@
 
     <main id="main">
         <section id="boardWrite" class="container">
-            <h2>나의 꿀팁 수정하기</h2>
+            <h2>공지사항 수정하기</h2>
             <div class="boardWrite_Wrap">
                 <form action="./noticeModifySave.php" method="post">
                     <fieldset>
